@@ -1,7 +1,4 @@
-post   http://localhost:3001/api/Persons
-Content-Type: application/json
 
-{
-  "name": "jhn",
-  "number": 30
-}
+
+
+get   http://localhost:3001/api/Persons
