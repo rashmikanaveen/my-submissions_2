@@ -1,6 +1,32 @@
 const express = require('express')
+const morgan = require('morgan');
+const{v4 : uuidv4} = require('uuid');
+
+
 const app = express()
+
 app.use(express.json());
+
+
+app.use(assignid);
+
+
+//app.use(morgan(':method :url :status :res[content-length] - :response-time ms" '));
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
+function assignid(req, res, next) {
+  req.id = uuidv4();
+  next();
+}
+
+
+morgan.token("id",function getId(req){
+  return req.id;
+})
+
+morgan.token('body', function (req) {
+  return JSON.stringify(req.body);
+});
+
 
 let Persons  =
 [
@@ -83,6 +109,9 @@ app.post('/api/Persons', (request, response) => {
 
   response.json(Persons)
 })
+
+
+
 
 
 
